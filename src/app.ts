@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // routes
-app.use("/user", UserRouter);
+app.use("/api/user", UserRouter);
 app.use("/setting", SettingsRouter);
 // app.use("/product", productRoute);
 // app.use("/user-input", userInputRoute);
