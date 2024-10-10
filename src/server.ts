@@ -15,7 +15,7 @@ async function mongodbConnect() {
   try {
     await mongoose.connect(mongoUrl, mongooseOptions);
     console.log("databes connected");
-    app.get("/", (req, res) => {
+    app.get("/api", (req, res) => {
       res.send("Website is running");
     });
     app.listen(port, () => {

@@ -28,7 +28,7 @@ function mongodbConnect() {
         try {
             yield mongoose_1.default.connect(mongoUrl, mongooseOptions);
             console.log("databes connected");
-            app_1.default.get("/", (req, res) => {
+            app_1.default.get("/api", (req, res) => {
                 res.send("Website is running");
             });
             app_1.default.listen(port, () => {
