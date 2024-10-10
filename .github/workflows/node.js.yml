@@ -28,4 +28,4 @@ jobs:
     - run: yarn run build --if-present
     - run: |
         touch .env
-        echo "{{secrets.GLOBAL_CREATIONS_SECRET_HERE}}"
+        echo "GLOBAL_CREATIONS_SECRET=${{ secrets.GLOBAL_CREATIONS_SECRET_HERE }}" >> .env
