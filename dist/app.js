@@ -14,7 +14,7 @@ app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 // routes
-app.use("/user", user_route_1.default);
+app.use("/api/user", user_route_1.default);
 app.use("/setting", setting_route_1.default);
 // app.use("/product", productRoute);
 // app.use("/user-input", userInputRoute);
