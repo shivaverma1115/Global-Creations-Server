@@ -15,7 +15,7 @@ async function mongodbConnect() {
     await mongoose.connect(mongoUrl, mongooseOptions);
     console.log("databes connected");
     app.get("/api", (req, res) => {
-      res.send("Website is running and CICD setup totally");
+      res.send("Website is running");
     });
     app.listen(port, () => {
       console.log(` app listening on port ${port}`);
