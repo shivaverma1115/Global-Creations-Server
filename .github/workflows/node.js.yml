@@ -28,3 +28,4 @@ jobs:
     - run: |
         touch .env
         echo "GLOBAL_CREATIONS_SECRET=${{ secrets.GLOBAL_CREATIONS_SECRET_HERE }}" >> .env
+    - run: pm2 restart BackenedAPI
