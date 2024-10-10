@@ -17,7 +17,8 @@ const app_1 = __importDefault(require("./app"));
 const port = process.env.PORT || 5000;
 require("dotenv").config();
 // conncet with mongodb atlas
-const mongoUrl = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.qbmtaop.mongodb.net/orgado`;
+// const mongoUrl = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.qbmtaop.mongodb.net/orgado`;
+const mongoUrl = `${process.env.MONGODB_URL}`;
 const mongooseOptions = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -28,7 +29,7 @@ function mongodbConnect() {
         try {
             yield mongoose_1.default.connect(mongoUrl, mongooseOptions);
             console.log("databes connected");
-            app_1.default.get("/api", (req, res) => {
+            app_1.default.get("/", (req, res) => {
                 res.send("Website is running");
             });
             app_1.default.listen(port, () => {
