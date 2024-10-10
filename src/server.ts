@@ -10,7 +10,6 @@ const mongooseOptions: any = {
   useUnifiedTopology: true,
   serverSelectionTimeoutMS: 30000,
 };
-
 async function mongodbConnect() {
   try {
     await mongoose.connect(mongoUrl, mongooseOptions);
