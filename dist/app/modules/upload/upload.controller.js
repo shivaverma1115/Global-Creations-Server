@@ -39,9 +39,7 @@ exports.uploadImg = uploadImg;
 const deleteImg = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const isDelete = yield (0, aws_services_1.deleteFile)(req.body.key);
-        return res.status(200).json({
-            isdelete: isDelete
-        });
+        return res.status(200).json({ isDelete });
     }
     catch (e) {
         console.log("error----->", e);

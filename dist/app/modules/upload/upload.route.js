@@ -11,6 +11,6 @@ uploadRouter.post('/', upload.single('image'), upload_controller_1.uploadImg);
 uploadRouter.post('/delete', upload_controller_1.deleteImg);
 /*To handle all invalid request */
 uploadRouter.all("*", (req, res) => {
-    res.status(500).json({ status: "failed", message: res });
+    res.status(404).json({ status: "failed", message: res });
 });
 exports.default = uploadRouter;

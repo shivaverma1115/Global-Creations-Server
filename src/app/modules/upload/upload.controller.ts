@@ -19,7 +19,7 @@ export const uploadImg = async (req: Request, res: Response) => {
 
         const result = await uploadFile(file);
         await unlink(file.path);
-        return res.status(200).json({result});
+        return res.status(200).json({ result });
     } catch (e) {
         console.log("error----->", e);
         return res.status(500).json({ message: "Internal server error" });
@@ -30,9 +30,7 @@ export const uploadImg = async (req: Request, res: Response) => {
 export const deleteImg = async (req: Request, res: Response) => {
     try {
         const isDelete = await deleteFile(req.body.key);
-        return res.status(200).json({
-            isdelete: isDelete
-        });
+        return res.status(200).json({ isDelete });
     } catch (e) {
         console.log("error----->", e);
         return res.status(500).json({ message: "Internal server error" });
