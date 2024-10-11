@@ -17,13 +17,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // routes
-app.use("/user", UserRouter);
-app.use("/setting", SettingsRouter);
-app.use("/product", productRoute);
-app.use("/user-input", userInputRoute);
-app.use("/payment", PaymentRoute);
-app.use("/success", paymentSuccess);
-app.use("/blog", blogRoute);
-app.use("/team", teamRoute);
+app.use("/api/user", UserRouter);
+app.use("/api/setting", SettingsRouter);
+app.use("/api/product", productRoute);
+app.use("/api/user-input", userInputRoute);
+app.use("/api/payment", PaymentRoute);
+app.use("/api/success", paymentSuccess);
+app.use("/api/blog", blogRoute);
+app.use("/api/team", teamRoute);
 
 export default app;
