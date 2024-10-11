@@ -15,7 +15,7 @@ async function mongodbConnect() {
     await mongoose.connect(mongoUrl, mongooseOptions);
     console.log("databes connected");
     app.get("/api", (req, res) => {
-      res.send("Website is running through AWS");
+      res.send("Website is running through AWS and i am testing CICD setup");
     });
     app.listen(port, () => {
       console.log(` app listening on port ${port}`);
