@@ -13,6 +13,7 @@ const payment_route_1 = __importDefault(require("./app/modules/payment/payment.r
 const orderSuccess_route_1 = __importDefault(require("./app/modules/OrderProduct/orderSuccess.route"));
 const blog_route_1 = __importDefault(require("./app/modules/blog/blog.route"));
 const team_route_1 = __importDefault(require("./app/modules/team/team.route"));
+const upload_route_1 = __importDefault(require("./app/modules/upload/upload.route"));
 const app = (0, express_1.default)();
 // cors
 app.use((0, cors_1.default)());
@@ -21,6 +22,7 @@ app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 // routes
 app.use("/api/user", user_route_1.default);
+app.use("/api/upload", upload_route_1.default);
 app.use("/api/setting", setting_route_1.default);
 app.use("/api/product", product_route_1.default);
 app.use("/api/user-input", user_input_route_1.default);
