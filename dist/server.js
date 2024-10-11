@@ -29,7 +29,7 @@ function mongodbConnect() {
             yield mongoose_1.default.connect(mongoUrl, mongooseOptions);
             console.log("databes connected");
             app_1.default.get("/api", (req, res) => {
-                res.send("Website is running");
+                res.send("Website is running through AWS");
             });
             app_1.default.listen(port, () => {
                 console.log(` app listening on port ${port}`);
