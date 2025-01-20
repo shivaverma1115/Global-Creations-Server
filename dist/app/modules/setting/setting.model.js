@@ -10,12 +10,12 @@ const categoryScema = new mongoose_1.Schema({
     },
     categoryclass: {
         type: String,
-        required: true,
+        // required: true,
         trim: true,
     },
     categoryThumb: {
         type: String,
-        required: true,
+        // required: true,
         trim: true,
     },
 });

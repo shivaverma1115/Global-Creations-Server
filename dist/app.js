@@ -14,6 +14,7 @@ const orderSuccess_route_1 = __importDefault(require("./app/modules/OrderProduct
 const blog_route_1 = __importDefault(require("./app/modules/blog/blog.route"));
 const team_route_1 = __importDefault(require("./app/modules/team/team.route"));
 const upload_route_1 = __importDefault(require("./app/modules/upload/upload.route"));
+const download_route_1 = __importDefault(require("./app/modules/download/download.route"));
 const app = (0, express_1.default)();
 // cors
 app.use((0, cors_1.default)());
@@ -21,13 +22,14 @@ app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 // routes
-app.use("/api/user", user_route_1.default);
-app.use("/api/upload", upload_route_1.default);
-app.use("/api/setting", setting_route_1.default);
-app.use("/api/product", product_route_1.default);
-app.use("/api/user-input", user_input_route_1.default);
-app.use("/api/payment", payment_route_1.default);
-app.use("/api/success", orderSuccess_route_1.default);
-app.use("/api/blog", blog_route_1.default);
-app.use("/api/team", team_route_1.default);
+app.use("/user", user_route_1.default);
+app.use("/upload", upload_route_1.default);
+app.use("/setting", setting_route_1.default);
+app.use("/product", product_route_1.default);
+app.use("/user-input", user_input_route_1.default);
+app.use("/payment", payment_route_1.default);
+app.use("/success", orderSuccess_route_1.default);
+app.use("/blog", blog_route_1.default);
+app.use("/team", team_route_1.default);
+app.use("/download", download_route_1.default);
 exports.default = app;

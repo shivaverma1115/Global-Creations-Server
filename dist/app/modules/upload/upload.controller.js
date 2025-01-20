@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.uploadPdftoWhatsapp = exports.uploadPDF = exports.deleteImg = exports.uploadImg = void 0;
+exports.uploadPdftoWhatsapp = exports.uploadPDF = exports.deleteImgFunction = exports.deleteImg = exports.uploadImg = void 0;
 const fs_1 = __importDefault(require("fs"));
 const aws_services_1 = require("./services/aws.services");
 const promises_1 = require("fs/promises");
@@ -38,6 +38,7 @@ const uploadImg = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.uploadImg = uploadImg;
 const deleteImg = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        console.log("deleteImg", req.body);
         const isDelete = yield (0, aws_services_1.deleteFile)(req.body.key);
         return res.status(200).json({ isDelete });
     }
@@ -47,6 +48,17 @@ const deleteImg = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.deleteImg = deleteImg;
+const deleteImgFunction = (key) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const isDelete = yield (0, aws_services_1.deleteFile)(key);
+        return isDelete;
+    }
+    catch (e) {
+        console.log("error----->", e);
+        return "Internal server error";
+    }
+});
+exports.deleteImgFunction = deleteImgFunction;
 function uploadPDF(file, filename, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {

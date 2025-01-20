@@ -60,6 +60,32 @@ export const loginUser = async (req: Request, res: Response) => {
     res.send({ message: "custom error" });
   }
 };
+export const loginAdmin = async (req: Request, res: Response) => {
+  try {
+    const userinfo = req.body;
+    const { email, password } = userinfo;
+    const validuser = await User.findOne({ email: email });
+    console.log(validuser)
+    if (validuser?.role !== 'admin') {
+      return res.status(401).send({ message: "permission denied" })
+    }
+    if (!validuser) {
+      return res.send({ message: "user not Valid" });
+    }
+    const validPass = await bcrypt.compare(password, validuser.password);
+    if (!validPass) {
+      return res.send({ message: "password not Match" });;
+    }
+    const token = jwt.sign(
+      { email: validuser.email },
+      `${process.env.JWT_SECRET}`,
+      { expiresIn: "1d" }
+    );
+    return res.status(200).send({ message: "Login Successful", data: token });
+  } catch (e) {
+    return res.send({ message: "custom error", e });
+  }
+};
 
 export const getLoginUser = async (req: Request, res: Response) => {
   try {

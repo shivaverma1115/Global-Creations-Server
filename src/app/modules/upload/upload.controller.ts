@@ -29,11 +29,21 @@ export const uploadImg = async (req: Request, res: Response) => {
 
 export const deleteImg = async (req: Request, res: Response) => {
     try {
+        console.log("deleteImg", req.body);
         const isDelete = await deleteFile(req.body.key);
         return res.status(200).json({ isDelete });
     } catch (e) {
         console.log("error----->", e);
         return res.status(500).json({ message: "Internal server error" });
+    }
+};
+export const deleteImgFunction = async (key: String) => {
+    try {
+        const isDelete = await deleteFile(key);
+        return isDelete;
+    } catch (e) {
+        console.log("error----->", e);
+        return "Internal server error";
     }
 };
 

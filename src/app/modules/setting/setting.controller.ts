@@ -15,19 +15,17 @@ export const createCategory = async (req: Request, res: Response) => {
     });
 
     if (alreadyExist) {
-      res.send({ message: "Alreay Exist" });
-    } else {
-      const category = new Category({
-        categoryName,
-        categoryclass,
-        categoryThumb,
-      });
-
-      await category.save();
-      res.status(200).send({ message: "success" });
+      return res.send({ message: "Alreay Exist" });
     }
+    const category = new Category({
+      categoryName,
+      categoryclass,
+      categoryThumb,
+    });
+    await category.save();
+    return res.status(200).send({ message: "success" });
   } catch (e) {
-    res.send({ message: "custome error" });
+    return res.send({ message: "custome error", e });
   }
 };
 

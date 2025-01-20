@@ -10,6 +10,7 @@ const adminVerify_1 = __importDefault(require("../../../middleware/adminVerify")
 const UserRouter = express_1.default.Router();
 UserRouter.post("/register", user_controller_1.createUser);
 UserRouter.post("/login", user_controller_1.loginUser);
+UserRouter.post("/login-admin", user_controller_1.loginAdmin);
 UserRouter.post("/get-user", user_controller_1.getLoginUser);
 UserRouter.get("/recent-user", user_controller_1.getRecentUsers);
 UserRouter.get("/users-info", userVerify_1.default, user_controller_1.getUserInfo);

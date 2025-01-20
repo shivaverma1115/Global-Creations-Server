@@ -5,6 +5,7 @@ import { Order } from "../OrderProduct/orderSuccess.model";
 import { formattedProductsType } from "./product.interface";
 import { UserReviewType } from "../user-input/user-input.interface";
 import { SubCategory } from "../setting/setting.model";
+import { deleteImg, deleteImgFunction } from "../upload/upload.controller";
 
 export const createProduct = async (req: Request, res: Response) => {
   try {
@@ -12,19 +13,19 @@ export const createProduct = async (req: Request, res: Response) => {
     const { productName, categoryName, subcategoryName } = productInfo;
     const alreayExist = await Product.findOne({ productName: productName });
     if (alreayExist) {
-      res.send({ message: "Already Exist" });
-    } else {
-      if (
-        categoryName === "select any category" ||
-        subcategoryName === "select any category"
-      ) {
-        res.send({ message: "category not selected" });
-      } else {
-        const newproduct = new Product(productInfo);
-        await newproduct.save();
-        res.status(200).send({ message: "success" });
-      }
+      return res.send({ message: "Already Exist" });
     }
+    if (
+      categoryName === "select any category"
+      // subcategoryName === "select any category"
+    ) {
+      return res.send({ message: "category not selected" });
+    }
+    console.log(productInfo)
+    const newproduct = new Product(productInfo);
+    console.log(newproduct)
+    await newproduct.save();
+    res.status(200).send({ message: "success" });
   } catch (e) {
     res.send({ message: "custom error" });
   }
@@ -174,26 +175,15 @@ export const deleteSingleImg = async (req: Request, res: Response) => {
 
 export const deleteProduct = async (req: Request, res: Response) => {
   try {
+    const product = await Product.findById(req.params.id);
+    await deleteImgFunction(product?.img.key);
     const result = await Product.deleteOne({ _id: req.params.id });
     if (result.deletedCount === 1) {
-      const exsistProduct = await OffProduct.findOne({
-        productId: req.params.id,
-      });
-      if (exsistProduct) {
-        const deleteOfferInfo = await OffProduct.deleteOne({
-          productId: req.params.id,
-        });
-        if (deleteOfferInfo.deletedCount === 1) {
-          res.send({ message: "success" });
-        } else {
-          res.send({ message: "something is wrong" });
-        }
-      }
-    } else {
-      res.send({ message: "success" });
+      await OffProduct.findOneAndDelete({ productId: req.params.id, });
     }
+    return res.send({ message: "success" });
   } catch (err) {
-    res.send({ message: "Error occurred while deleting user history" });
+    return res.send({ message: "Error occurred while deleting user history", err });
   }
 };
 
@@ -569,7 +559,7 @@ export const updateOfferBannerImage = async (req: Request, res: Response) => {
 
 // get product brand or subcategory wize
 
-export const getSubCategoryWizeProducts = async (req: Request,res: Response) => {
+export const getSubCategoryWizeProducts = async (req: Request, res: Response) => {
   try {
     const id = req.params.id;
     const { page, limit } = req.query;
@@ -579,26 +569,25 @@ export const getSubCategoryWizeProducts = async (req: Request,res: Response) => 
     const data = await SubCategory.findOne({ _id: id });
     const subCategory = data?.subCategoryName;
     const products = await Product.find({ subcategoryName: subCategory })
-    .sort({ date: -1 })
-    .skip(skip)
-    .limit(parsedLimit);
-  const totalProductsCount = await Product.countDocuments();
-  const totalPages = Math.ceil(totalProductsCount / parsedLimit);
+      .sort({ date: -1 })
+      .skip(skip)
+      .limit(parsedLimit);
+    const totalProductsCount = await Product.countDocuments();
+    const totalPages = Math.ceil(totalProductsCount / parsedLimit);
 
-  if(!products.length){
-    res.status(400).send({message:"Product Not Available"})
-  }
+    if (!products.length) {
+      res.status(400).send({ message: "Product Not Available" })
+    }
 
-  res.status(200).send({
-    products,
-    totalPages,
-    currentPage: parsedPage,
-    totalProducts: totalProductsCount,
-  });
+    res.status(200).send({
+      products,
+      totalPages,
+      currentPage: parsedPage,
+      totalProducts: totalProductsCount,
+    });
 
   } catch (e) {
     res.status(500).send({ error: "Internal Server Error" });
   }
 };
 
- 

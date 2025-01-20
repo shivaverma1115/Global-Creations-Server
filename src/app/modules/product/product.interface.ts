@@ -7,7 +7,7 @@ export interface ProductType {
     productName: string;
     productQuantity: number;
     subcategoryName: string;
-    img: string;
+    img: any;
     date:string;
     offer:boolean;
     offerPersent:number;
