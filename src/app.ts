@@ -9,6 +9,7 @@ import paymentSuccess from "./app/modules/OrderProduct/orderSuccess.route";
 import blogRoute from "./app/modules/blog/blog.route";
 import teamRoute from "./app/modules/team/team.route";
 import uploadRouter from "./app/modules/upload/upload.route";
+import downloadRouter from "./app/modules/download/download.route";
 const app: Application = express();
 
 // cors
@@ -18,14 +19,21 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // routes
-app.use("/api/user", UserRouter);
-app.use("/api/upload", uploadRouter);
-app.use("/api/setting", SettingsRouter);
-app.use("/api/product", productRoute);
-app.use("/api/user-input", userInputRoute);
-app.use("/api/payment", PaymentRoute);
-app.use("/api/success", paymentSuccess);
-app.use("/api/blog", blogRoute);
-app.use("/api/team", teamRoute);
+app.get("/api", (req, res) => {
+    return res.status(200).send({
+        msg:"Website is running"
+    });
+});
+app.use("/user", UserRouter);
+app.use("/upload", uploadRouter);
+app.use("/setting", SettingsRouter);
+app.use("/product", productRoute);
+app.use("/user-input", userInputRoute);
+app.use("/payment", PaymentRoute);
+app.use("/success", paymentSuccess);
+app.use("/blog", blogRoute);
+app.use("/team", teamRoute);
+
+app.use("/download", downloadRouter);
 
 export default app;

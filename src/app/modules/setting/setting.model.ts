@@ -9,12 +9,12 @@ const categoryScema = new Schema<CategoryType>({
   },
   categoryclass: {
     type: String,
-    required: true,
+    // required: true,
     trim: true,
   },
   categoryThumb: {
     type: String,
-    required: true,
+    // required: true,
     trim: true,
   },
 });

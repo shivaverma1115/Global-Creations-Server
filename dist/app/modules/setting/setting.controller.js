@@ -24,20 +24,18 @@ const createCategory = (req, res) => __awaiter(void 0, void 0, void 0, function*
             },
         });
         if (alreadyExist) {
-            res.send({ message: "Alreay Exist" });
+            return res.send({ message: "Alreay Exist" });
         }
-        else {
-            const category = new setting_model_1.Category({
-                categoryName,
-                categoryclass,
-                categoryThumb,
-            });
-            yield category.save();
-            res.status(200).send({ message: "success" });
-        }
+        const category = new setting_model_1.Category({
+            categoryName,
+            categoryclass,
+            categoryThumb,
+        });
+        yield category.save();
+        return res.status(200).send({ message: "success" });
     }
     catch (e) {
-        res.send({ message: "custome error" });
+        return res.send({ message: "custome error", e });
     }
 });
 exports.createCategory = createCategory;

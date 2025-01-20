@@ -6,6 +6,7 @@ import {
   getLoginUser,
   getRecentUsers,
   getUserInfo,
+  loginAdmin,
   loginUser,
   makeAdmin,
   makeUser,
@@ -17,6 +18,7 @@ import adminVerify from "../../../middleware/adminVerify";
 const UserRouter = express.Router();
 UserRouter.post("/register", createUser);
 UserRouter.post("/login", loginUser);
+UserRouter.post("/login-admin", loginAdmin);
 UserRouter.post("/get-user", getLoginUser);
 UserRouter.get("/recent-user", getRecentUsers);
 UserRouter.get("/users-info",verifyToken, getUserInfo);

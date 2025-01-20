@@ -35,11 +35,11 @@ export async function uploadFile(file: any): Promise<any> {
   }
 }
 
-export async function deleteFile(key: any): Promise<boolean> {
+export async function deleteFile(Key: any): Promise<boolean> {
   try {
     const deleteParams = {
       Bucket: bucketName,
-      Key: key,
+      Key
     };
     await s3.deleteObject(deleteParams).promise();
     return true;

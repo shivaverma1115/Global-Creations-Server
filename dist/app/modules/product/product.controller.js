@@ -14,25 +14,25 @@ const product_model_1 = require("./product.model");
 const user_input_model_1 = require("../user-input/user-input.model");
 const orderSuccess_model_1 = require("../OrderProduct/orderSuccess.model");
 const setting_model_1 = require("../setting/setting.model");
+const upload_controller_1 = require("../upload/upload.controller");
 const createProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const productInfo = req.body;
         const { productName, categoryName, subcategoryName } = productInfo;
         const alreayExist = yield product_model_1.Product.findOne({ productName: productName });
         if (alreayExist) {
-            res.send({ message: "Already Exist" });
+            return res.send({ message: "Already Exist" });
         }
-        else {
-            if (categoryName === "select any category" ||
-                subcategoryName === "select any category") {
-                res.send({ message: "category not selected" });
-            }
-            else {
-                const newproduct = new product_model_1.Product(productInfo);
-                yield newproduct.save();
-                res.status(200).send({ message: "success" });
-            }
+        if (categoryName === "select any category"
+        // subcategoryName === "select any category"
+        ) {
+            return res.send({ message: "category not selected" });
         }
+        console.log(productInfo);
+        const newproduct = new product_model_1.Product(productInfo);
+        console.log(newproduct);
+        yield newproduct.save();
+        res.status(200).send({ message: "success" });
     }
     catch (e) {
         res.send({ message: "custom error" });
@@ -160,29 +160,16 @@ const deleteSingleImg = (req, res) => __awaiter(void 0, void 0, void 0, function
 exports.deleteSingleImg = deleteSingleImg;
 const deleteProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        const product = yield product_model_1.Product.findById(req.params.id);
+        yield (0, upload_controller_1.deleteImgFunction)(product === null || product === void 0 ? void 0 : product.img.key);
         const result = yield product_model_1.Product.deleteOne({ _id: req.params.id });
         if (result.deletedCount === 1) {
-            const exsistProduct = yield product_model_1.OffProduct.findOne({
-                productId: req.params.id,
-            });
-            if (exsistProduct) {
-                const deleteOfferInfo = yield product_model_1.OffProduct.deleteOne({
-                    productId: req.params.id,
-                });
-                if (deleteOfferInfo.deletedCount === 1) {
-                    res.send({ message: "success" });
-                }
-                else {
-                    res.send({ message: "something is wrong" });
-                }
-            }
+            yield product_model_1.OffProduct.findOneAndDelete({ productId: req.params.id, });
         }
-        else {
-            res.send({ message: "success" });
-        }
+        return res.send({ message: "success" });
     }
     catch (err) {
-        res.send({ message: "Error occurred while deleting user history" });
+        return res.send({ message: "Error occurred while deleting user history", err });
     }
 });
 exports.deleteProduct = deleteProduct;

@@ -49,12 +49,12 @@ function uploadFile(file) {
     });
 }
 exports.uploadFile = uploadFile;
-function deleteFile(key) {
+function deleteFile(Key) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const deleteParams = {
                 Bucket: exports.bucketName,
-                Key: key,
+                Key
             };
             yield exports.s3.deleteObject(deleteParams).promise();
             return true;

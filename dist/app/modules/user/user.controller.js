@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.changePassword = exports.searchUser = exports.makeAdmin = exports.makeUser = exports.deleteUser = exports.getUserInfo = exports.updateUserInfo = exports.getRecentUsers = exports.getLoginUser = exports.loginUser = exports.createUser = void 0;
+exports.changePassword = exports.searchUser = exports.makeAdmin = exports.makeUser = exports.deleteUser = exports.getUserInfo = exports.updateUserInfo = exports.getRecentUsers = exports.getLoginUser = exports.loginAdmin = exports.loginUser = exports.createUser = void 0;
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const user_model_1 = require("./user.model");
@@ -70,6 +70,31 @@ const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.loginUser = loginUser;
+const loginAdmin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const userinfo = req.body;
+        const { email, password } = userinfo;
+        const validuser = yield user_model_1.User.findOne({ email: email });
+        console.log(validuser);
+        if ((validuser === null || validuser === void 0 ? void 0 : validuser.role) !== 'admin') {
+            return res.status(401).send({ message: "permission denied" });
+        }
+        if (!validuser) {
+            return res.send({ message: "user not Valid" });
+        }
+        const validPass = yield bcrypt_1.default.compare(password, validuser.password);
+        if (!validPass) {
+            return res.send({ message: "password not Match" });
+            ;
+        }
+        const token = jsonwebtoken_1.default.sign({ email: validuser.email }, `${process.env.JWT_SECRET}`, { expiresIn: "1d" });
+        return res.status(200).send({ message: "Login Successful", data: token });
+    }
+    catch (e) {
+        return res.send({ message: "custom error", e });
+    }
+});
+exports.loginAdmin = loginAdmin;
 const getLoginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { token } = req.body;
