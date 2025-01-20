@@ -26,5 +26,5 @@ jobs:
     - run: npm ci
     - run: |
         touch .env
-        echo "${{ secrets.GLOBAL_CREATIONS_SECRET_HERE }}" > .env
+        echo "${{ secrets.GLOBA }}" > .env
     - run: pm2 restart BackenedAPI
