@@ -18,12 +18,14 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// routes
+
 app.get("/api", (req, res) => {
     return res.status(200).send({
         msg:"Website is running"
     });
 });
+
+// routes
 app.use("/user", UserRouter);
 app.use("/upload", uploadRouter);
 app.use("/setting", SettingsRouter);

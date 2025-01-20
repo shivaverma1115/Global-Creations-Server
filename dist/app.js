@@ -21,12 +21,12 @@ app.use((0, cors_1.default)());
 // parse data
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
-// routes
 app.get("/api", (req, res) => {
     return res.status(200).send({
         msg: "Website is running"
     });
 });
+// routes
 app.use("/user", user_route_1.default);
 app.use("/upload", upload_route_1.default);
 app.use("/setting", setting_route_1.default);
