@@ -21,7 +21,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.get("/api", (req, res) => {
     return res.status(200).send({
-        msg:"Website is running"
+        msg:"Website is running and cice is setup now"
     });
 });
 

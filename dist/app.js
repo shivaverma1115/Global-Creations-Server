@@ -23,7 +23,7 @@ app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 app.get("/api", (req, res) => {
     return res.status(200).send({
-        msg: "Website is running"
+        msg: "Website is running and cice is setup now"
     });
 });
 // routes
