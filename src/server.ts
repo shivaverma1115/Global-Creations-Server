@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import app from "./app";
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 8000;
 
 require("dotenv").config();
 // conncet with mongodb atlas
