@@ -19,6 +19,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // routes
+app.get("/api", (req, res) => {
+    return res.status(200).send({
+        msg:"Website is running"
+    });
+});
 app.use("/user", UserRouter);
 app.use("/upload", uploadRouter);
 app.use("/setting", SettingsRouter);
@@ -29,6 +34,6 @@ app.use("/success", paymentSuccess);
 app.use("/blog", blogRoute);
 app.use("/team", teamRoute);
 
-app.use("/download",downloadRouter);
+app.use("/download", downloadRouter);
 
 export default app;
